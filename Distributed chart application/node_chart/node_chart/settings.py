@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Chart_Room',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'node_chart.wsgi.application'
+#the channels replaces Django WSGI server with ASGI server 
+ASGI_APPLICATION = 'node_chart.asgi.application'
 
 
 # Database
@@ -124,5 +127,14 @@ STATIC_URL = 'static/'
 MAILERS = {
     'default': {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+    },
+}
+# sines the channel_redis is installed then the application will use the  Redis as the backend for the channel layer
+CHANNEL_LAYERS = {
+    "default" : {
+        "BACKEND":"channels_redis.core.RedisChannelLayer",
+        "CONFIG":{
+            "hosts":[("127.0.0.1", 6379)],
+        },
     },
 }
