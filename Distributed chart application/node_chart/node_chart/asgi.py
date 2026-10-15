@@ -20,6 +20,7 @@ application = ProtocolTypeRouter({
     "http":get_asgi_application(),
     "websocket": AuthMiddlewareStack(
         URLRouter(
+    
             Chart_Room.routing.websocket_urlpatterns
         ),
     ),
